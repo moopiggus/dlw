@@ -9,6 +9,7 @@ count = 0
 dir = 0 # starts from moving upwards
 pTime = 0
 
+
 low_angle = 30
 high_angle = 160
 
@@ -25,16 +26,27 @@ while True:
         # help users see if full motion completedjm
         bar = np.interp(angle, (low_angle, high_angle), (100, 650))
         # check the dumbbell curl
-        # fix lack of discipline later
+        
         color = (255, 0, 255)
-        if per == 100:
-            if dir == 0: # going up
-                count += 0.5
-                dir = 1 # change to going down
-        if per == 0:
-            if dir == 1:
-                count += 0.5
-                dir = 0
+        
+        if angle > (high_angle + 20): 
+            cv2.putText(img, "incorrect form! don't hyperextend elbow!", (1000, 675), 
+                        cv2.FONT_HERSHEY_PLAIN, 3, color, 2)
+
+        if per == 100 and dir == 0: # going up
+            count += 0.5
+            dir = 1 # change to going down
+        
+        if angle < low_angle: 
+            cv2.putText(img, "good job! <3", (1000, 675), 
+                        cv2.FONT_HERSHEY_PLAIN, 3, color, 2)
+            
+        if per == 0 and dir == 1:
+            count +=0.5
+            dir = 0
+           
+                
+        
         # Draw progress bar
         # border
         cv2.rectangle(img, (1700, 100), (1775, 650), color, 1)

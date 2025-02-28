@@ -62,3 +62,13 @@ class poseDetector() :
             cv2.putText(img, str(int(angle)), (x2 - 50, y2 + 50), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
         return angle
+    
+    def findXDist(self, img, p1, p2, draw=True):
+        _, x1, y1 = self.lmList[p1]
+        _, x2, y2 = self.lmList[p2]
+        return abs(x1 - x2) 
+    
+    def findYDist(self, img, p1, p2, draw=True):
+        _, x1, y1 = self.lmList[p1]
+        _, x2, y2 = self.lmList[p2]
+        return abs(y1 - y2) 
